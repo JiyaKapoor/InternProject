@@ -16,6 +16,7 @@ public class TicketProducer {
     @Autowired
     private KafkaTemplate<String, Ticket> kafkaTemplate;
 
+
     public void sendTicket(Ticket ticket) {
         kafkaTemplate.send(TOPIC, ticket.getNumber(), ticket)
                 .whenComplete((result, ex) -> {
