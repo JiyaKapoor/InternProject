@@ -1,0 +1,26 @@
+# AIOps Ingestion Pipeline — Python Dependencies
+
+# Orchestration
+langgraph>=0.2.0
+langchain>=0.2.0
+langchain-text-splitters>=0.2.0
+
+# Crawling
+httpx>=0.27.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Embeddings
+google-genai>=1.0.0
+
+# Vector store
+supabase>=2.5.0
+
+# BM25 re-ranking
+rank-bm25>=0.2.2
+
+# LLM (resolution agent)
+langchain-mistralai>=0.1.0
+
+# Utilities
+python-dotenv>=1.0.0
