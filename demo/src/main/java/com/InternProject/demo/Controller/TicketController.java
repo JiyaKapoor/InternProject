@@ -11,10 +11,27 @@ import org.springframework.web.bind.annotation.*;
 public class TicketController {
     @Autowired
     private TicketProducer ticketProducer;
-
     @PostMapping
-    public ResponseEntity<String> createTicket(@RequestBody Ticket ticket) {
+    public ResponseEntity<String> receive(
+            @RequestBody(required = false) String body,
+            @RequestParam(required = false) String validationToken
+    ) {
+
+        // STEP 1: Microsoft webhook validation (MANDATORY)
+        if (validationToken != null) {
+            return ResponseEntity.ok(validationToken);
+        }
+
+        // STEP 2: Log incoming event
+        System.out.println("📩 Outlook webhook received: " + body);
+
+        // STEP 3: push to Kafka
+        Ticket ticket = new Ticket();
+        ticket.setShortDescription(body);
+
         ticketProducer.sendTicket(ticket);
-        return ResponseEntity.accepted().body("Ticket " + ticket.getNumber() + " queued for processing");
+
+        return ResponseEntity.ok("processed");
+
     }
 }
