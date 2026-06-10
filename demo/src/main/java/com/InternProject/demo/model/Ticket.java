@@ -46,7 +46,6 @@ public class Ticket {
     public String getShortDescription() {
         return shortDescription;
     }
-
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
     }
