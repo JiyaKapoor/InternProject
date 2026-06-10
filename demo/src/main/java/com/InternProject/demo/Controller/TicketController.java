@@ -5,33 +5,39 @@ import com.InternProject.demo.Producer.TicketProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping("/api/emails")
 public class TicketController {
+
     @Autowired
     private TicketProducer ticketProducer;
+
     @PostMapping
-    public ResponseEntity<String> receive(
-            @RequestBody(required = false) String body,
-            @RequestParam(required = false) String validationToken
-    ) {
+    public ResponseEntity<String> receiveEmail(@RequestBody Map<String, Object> emailData) {
 
-        // STEP 1: Microsoft webhook validation (MANDATORY)
-        if (validationToken != null) {
-            return ResponseEntity.ok(validationToken);
-        }
+        String from = (String) emailData.get("from");
+        String to = (String) emailData.get("to");
+        String subject = (String) emailData.get("subject");
+        String body = (String) emailData.get("body");
+        String receivedTime = (String) emailData.get("receivedTime");
 
-        // STEP 2: Log incoming event
-        System.out.println("📩 Outlook webhook received: " + body);
+        System.out.println("=== New Email Received ===");
+        System.out.println("From: " + from);
+        System.out.println("Subject: " + subject);
+        System.out.println("Body: " + body);
+        System.out.println("=========================");
 
-        // STEP 3: push to Kafka
-        Ticket ticket = new Ticket();
-        ticket.setShortDescription(body);
+        // TODO: pass to Kafka via ticketProducer
+        // ticketProducer.sendTicket(...);
 
-        ticketProducer.sendTicket(ticket);
+        return ResponseEntity.ok("received");
+    }
 
-        return ResponseEntity.ok("processed");
-
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
     }
 }
