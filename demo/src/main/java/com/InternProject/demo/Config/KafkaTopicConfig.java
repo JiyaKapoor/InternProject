@@ -7,7 +7,6 @@ import org.springframework.kafka.config.TopicBuilder;
 
 @Configuration
 public class KafkaTopicConfig {
-
     @Bean
     public NewTopic ticketsRawTopic() {
         return TopicBuilder.name("tickets.raw")
