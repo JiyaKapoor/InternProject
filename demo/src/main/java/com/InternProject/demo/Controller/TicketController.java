@@ -30,7 +30,6 @@ public class TicketController {
         System.out.println("Body: " + body);
         System.out.println("=========================");
 
-
         // TODO: pass to Kafka via ticketProducer
         // ticketProducer.sendTicket(...);
 
