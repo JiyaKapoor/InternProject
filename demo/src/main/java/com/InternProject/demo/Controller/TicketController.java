@@ -31,10 +31,11 @@ public class TicketController {
         System.out.println("Subject: " + subject);
         System.out.println("Body: " + body);
         System.out.println("=========================");
+        Ticket ticket=emailToTicketParser.parse(emailData);
+        ticketProducer.sendTicket(ticket);                    // add this
 
-        // TODO: pass to Kafka via ticketProducer
-        // ticketProducer.sendTicket(...);
-
+        System.out.println("Ticket created: " + ticket.getNumber());
+        System.out.println("Short Desc: " + ticket.getShortDescription());
         return ResponseEntity.ok("received");
     }
 
