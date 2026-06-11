@@ -23,10 +23,7 @@ public class TicketProducer {
                     if (ex != null) {
                         System.out.println("Failed to send ticket {}: {}"+ ticket.getNumber()+ex.getMessage());
                     } else {
-                        System.out.println("Sent ticket {} to partition {} offset {}"+
-                                ticket.getNumber()+
-                                result.getRecordMetadata().partition()+
-                                result.getRecordMetadata().offset());
+                        System.out.println("Sent ticket"+ticket.getNumber()+"to partition"+result.getRecordMetadata().partition()+"offset"+result.getRecordMetadata().offset());
                     }
                 });
     }
