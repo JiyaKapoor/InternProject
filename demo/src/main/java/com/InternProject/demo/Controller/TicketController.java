@@ -1,5 +1,6 @@
 package com.InternProject.demo.Controller;
 
+import com.InternProject.demo.Service.EmailToTicketParser;
 import com.InternProject.demo.model.Ticket;
 import com.InternProject.demo.Producer.TicketProducer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ public class TicketController {
 
     @Autowired
     private TicketProducer ticketProducer;
-
+    @Autowired
+    private EmailToTicketParser emailToTicketParser;
     @PostMapping
     public ResponseEntity<String> receiveEmail(@RequestBody Map<String, Object> emailData) {
 
