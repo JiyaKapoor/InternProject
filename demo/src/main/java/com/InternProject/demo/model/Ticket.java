@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Ticket {
-
     private String number;
     private boolean active;
     private int priority;
