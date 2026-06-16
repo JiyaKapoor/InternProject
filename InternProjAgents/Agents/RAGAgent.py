@@ -17,8 +17,8 @@ from langchain_mistralai import ChatMistralAI
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(PROJECT_ROOT / ".env")
 
-from Embedder import embed_query
-from Store import hybrid_search
+from .Embedder import embed_query
+from .Store import hybrid_search
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger(__name__)

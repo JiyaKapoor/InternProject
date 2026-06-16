@@ -16,12 +16,12 @@ from typing_extensions import TypedDict
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(PROJECT_ROOT / ".env")
 
-from Cleaner import clean_text
-from Chunker import chunk_documents
-from Embedder import embed_chunks
-from MetadataTagger import tag_metadata
-from MSDocsCrawler import MsDocsCrawler
-from Store import upsert_chunks
+from .Cleaner import clean_text
+from .Chunker import chunk_documents
+from .Embedder import embed_chunks
+from .MetadataTagger import tag_metadata
+from .MSDocsCrawler import MsDocsCrawler
+from .Store import upsert_chunks
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 log = logging.getLogger(__name__)
