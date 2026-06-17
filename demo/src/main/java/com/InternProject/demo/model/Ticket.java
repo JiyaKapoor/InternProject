@@ -1,9 +1,7 @@
 package com.InternProject.demo.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDateTime;
@@ -16,11 +14,27 @@ public class Ticket {
     private int priority;
     private String shortDescription;
     private String assignmentGroup;
-    private String state;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private TicketState state;
     private String assignedTo;
     private LocalDateTime sysCreatedOn;
     private LocalDateTime resolvedAt;
+    private boolean SLA_Breached;
+    private LocalDateTime SLADue;
+    public void setSLADue(LocalDateTime time){
+        this.SLADue=time;
+    }
+    public LocalDateTime getSLADue(){
+        return this.SLADue;
+    }
 
+    public void setSLA_Breached(boolean flag){
+        this.SLA_Breached=flag;
+    }
+    public boolean getSLA_Breached(){
+        return this.SLA_Breached;
+    }
     public String getNumber() {
         return number;
     }
@@ -60,11 +74,11 @@ public class Ticket {
         this.assignmentGroup = assignmentGroup;
     }
 
-    public String getState() {
+    public TicketState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(TicketState state) {
         this.state = state;
     }
 
