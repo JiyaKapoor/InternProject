@@ -3,6 +3,7 @@ package com.InternProject.demo.Consumer;
 import com.InternProject.demo.Repository.TicketRepository;
 import com.InternProject.demo.model.Ticket;
 
+import com.InternProject.demo.model.TicketState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +50,7 @@ public class TicketConsumer {
             ticket.setResolution(response.getBody().get("answer").toString());
             if(LocalDateTime.now().isAfter(ticket.getSLADue()))ticket.setSLA_Breached(true);
             else ticket.setSLA_Breached(false);
+            ticket.setState(TicketState.RESOLVED);
             ticketRepository.save(ticket);
             System.out.println("RAG Response for " + ticket.getNumber());
             System.out.println("Answer: " + response.getBody().get("answer"));
