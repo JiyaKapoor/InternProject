@@ -20,8 +20,8 @@ public class TicketController {
     @PostMapping
     public ResponseEntity<String> receiveEmail(@RequestBody Map<String, Object> emailData) {
 
-        String from = (String) emailData.get("from");
-        String to = (String) emailData.get("to");
+
+        String from = (String) emailData.get("to");
         String subject = (String) emailData.get("subject");
         String body = (String) emailData.get("body");
         String receivedTime = (String) emailData.get("receivedTime");
@@ -32,6 +32,7 @@ public class TicketController {
         System.out.println("Body: " + body);
         System.out.println("=========================");
         Ticket ticket=emailToTicketParser.parse(emailData);
+        ticket.setUserEmail(from);
 
         ticketProducer.sendTicket(ticket);                
 

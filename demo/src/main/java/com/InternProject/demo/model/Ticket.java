@@ -13,7 +13,9 @@ public class Ticket {
     private boolean active;
     private int priority;
     private String shortDescription;
+    @Column(columnDefinition = "TEXT")
     private String resolution;
+    private String userEmail;
     private String assignmentGroup;
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
@@ -23,6 +25,12 @@ public class Ticket {
     private LocalDateTime resolvedAt;
     private boolean SLA_Breached;
     private LocalDateTime SLADue;
+    public void setUserEmail(String email){
+        this.userEmail=email;
+    }
+    public String getUserEmail(){
+        return this.userEmail;
+    }
     public void setSLADue(LocalDateTime time){
         this.SLADue=time;
     }
