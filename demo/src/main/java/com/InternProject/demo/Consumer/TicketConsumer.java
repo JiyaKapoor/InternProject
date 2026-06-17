@@ -10,6 +10,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,8 @@ public class TicketConsumer {
             ResponseEntity<Map> response = restTemplate.postForEntity(
                     FASTAPI_URL, entity, Map.class
             );
+            //we also set the resolution time for this ticket
+            ticket.setResolvedAt(LocalDateTime.now());
             System.out.println("=== RAG Response for " + ticket.getNumber() + " ===");
             System.out.println("Answer: " + response.getBody().get("answer"));
             System.out.println("Sources: " + response.getBody().get("sources"));
