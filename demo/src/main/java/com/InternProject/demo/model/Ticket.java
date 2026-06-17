@@ -2,12 +2,15 @@ package com.InternProject.demo.model;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Ticket {
+    @Id
     private String number;
     private boolean active;
     private int priority;
