@@ -19,8 +19,8 @@ public class EmailToTicketParser {
         ticket.setState("New");
         ticket.setSysCreatedOn(LocalDateTime.now());
         ticket.setAssignedTo(from);
-        ticket.setPriority(3); // default, you handle later
-        ticket.setAssignmentGroup("General IT"); // default, you handle later
+        ticket.setPriority(3);
+        ticket.setAssignmentGroup("General IT");
 
         // Extract short description from body
         String shortDesc = extractShortDescription(body);
@@ -32,13 +32,11 @@ public class EmailToTicketParser {
     private String extractShortDescription(String body) {
         if (body == null || body.isBlank()) return "No description provided";
 
-        // Remove greetings
         String cleaned = body
                 .replaceAll("(?i)^(dear|hi|hello|hey)\\s+.*?(\\n|,)", "")
                 .replaceAll("(?i)(regards|thanks|thank you|sincerely).*$", "")
                 .trim();
 
-        // Take first meaningful sentence
         String[] sentences = cleaned.split("(?<=[.!?])\\s+");
         for (String sentence : sentences) {
             String s = sentence.trim();
@@ -48,7 +46,6 @@ public class EmailToTicketParser {
             }
         }
 
-        // Fallback — take first 100 chars of cleaned body
         return cleaned.length() > 100 ? cleaned.substring(0, 100) + "..." : cleaned;
     }
 }
