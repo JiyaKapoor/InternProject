@@ -13,6 +13,7 @@ public class Ticket {
     private boolean active;
     private int priority;
     private String shortDescription;
+    private String resolution;
     private String assignmentGroup;
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
@@ -28,7 +29,12 @@ public class Ticket {
     public LocalDateTime getSLADue(){
         return this.SLADue;
     }
-
+    public void setResolution(String resolution){
+        this.resolution=resolution;
+    }
+    public String getResolution(){
+        return this.resolution;
+    }
     public void setSLA_Breached(boolean flag){
         this.SLA_Breached=flag;
     }

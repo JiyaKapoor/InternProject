@@ -32,6 +32,7 @@ public class TicketController {
         System.out.println("Body: " + body);
         System.out.println("=========================");
         Ticket ticket=emailToTicketParser.parse(emailData);
+
         ticketProducer.sendTicket(ticket);                
 
         System.out.println("Ticket created: " + ticket.getNumber());

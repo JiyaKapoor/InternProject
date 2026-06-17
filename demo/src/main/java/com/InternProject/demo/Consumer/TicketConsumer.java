@@ -1,7 +1,9 @@
 package com.InternProject.demo.Consumer;
 
+import com.InternProject.demo.Repository.TicketRepository;
 import com.InternProject.demo.model.Ticket;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,7 +23,8 @@ public class TicketConsumer {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String FASTAPI_URL = "http://localhost:8000/analyze";
-
+    @Autowired
+    TicketRepository ticketRepository;
     @KafkaListener(topics = "tickets.raw", groupId = "ticket-processor")
     public void consume(Ticket ticket) {
         System.out.println("Received ticket: " + ticket.getNumber() +
@@ -42,9 +45,12 @@ public class TicketConsumer {
             ResponseEntity<Map> response = restTemplate.postForEntity(
                     FASTAPI_URL, entity, Map.class
             );
-            //we also set the resolution time for this ticket
             ticket.setResolvedAt(LocalDateTime.now());
-            System.out.println("=== RAG Response for " + ticket.getNumber() + " ===");
+            ticket.setResolution(response.getBody().get("answer").toString());
+            if(LocalDateTime.now().isAfter(ticket.getSLADue()))ticket.setSLA_Breached(true);
+            else ticket.setSLA_Breached(false);
+            ticketRepository.save(ticket);
+            System.out.println("RAG Response for " + ticket.getNumber());
             System.out.println("Answer: " + response.getBody().get("answer"));
             System.out.println("Sources: " + response.getBody().get("sources"));
         } catch (Exception e) {
