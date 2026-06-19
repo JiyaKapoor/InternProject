@@ -14,6 +14,7 @@ public class EmailToTicketParser {
         String body = (String) emailData.get("body");
         String from = (String) emailData.get("from");
 
+
         Ticket ticket = new Ticket();
         ticket.setNumber("TKT-" + System.currentTimeMillis());
         ticket.setActive(true);
