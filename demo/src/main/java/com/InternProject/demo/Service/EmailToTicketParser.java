@@ -13,7 +13,7 @@ public class EmailToTicketParser {
         String subject = (String) emailData.get("subject");
         String body = (String) emailData.get("body");
         String from = (String) emailData.get("from");
-
+        String to=(String) emailData.get("to");
 
         Ticket ticket = new Ticket();
         ticket.setNumber("TKT-" + System.currentTimeMillis());
@@ -21,7 +21,8 @@ public class EmailToTicketParser {
         ticket.setState(TicketState.NEW);
         ticket.setSLADue(LocalDateTime.now().plusHours(8));
         ticket.setSysCreatedOn(LocalDateTime.now());
-        ticket.setAssignedTo(from);
+        ticket.setUserEmail(from);
+        ticket.setAssignedTo(to);
         ticket.setPriority(3);
         ticket.setAssignmentGroup("General IT");
 
