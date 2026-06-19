@@ -21,9 +21,10 @@ public class TicketController {
     public ResponseEntity<String> receiveEmail(@RequestBody Map<String, Object> emailData) {
 
 
-        String from = (String) emailData.get("to");
+        String to = (String) emailData.get("to");
         String subject = (String) emailData.get("subject");
         String body = (String) emailData.get("body");
+        String from=(String) emailData.get("from");
         String receivedTime = (String) emailData.get("receivedTime");
 
         System.out.println("=== New Email Received ===");
