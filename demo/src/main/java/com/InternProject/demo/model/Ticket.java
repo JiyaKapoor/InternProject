@@ -2,7 +2,7 @@ package com.InternProject.demo.model;
 
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 
 import java.time.LocalDateTime;
 
